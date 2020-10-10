@@ -17,7 +17,11 @@ public class TestClass {
         init();
         Window.createDisplay();
 
-        Matrix4f[] tempTransform = new Matrix4f[]{Maths.createTransformationMatrix(new Vector3f(0f, 0f, -25f), 0, 0, 0, 1)};
+        Matrix4f[] tempTransform = new Matrix4f[100];
+
+        for(int i = 0; i < 100; i++){
+            tempTransform[i] = Maths.createTransformationMatrix(new Vector3f(i - 50, i - 50, -130), i * 10, i * 10, i * 10, 0.5f);
+        }
 
         RenderData data = new RenderData();
         OBJLoader.loadObjModel("dragon", data, tempTransform, tempTransform.length);

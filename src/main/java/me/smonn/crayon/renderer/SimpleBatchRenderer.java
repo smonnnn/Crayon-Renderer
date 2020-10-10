@@ -31,7 +31,7 @@ public class SimpleBatchRenderer {
         vao.bindTexture("white");
         vao.bindIndices(renderData.getIndices());
         vao.bindNormals(renderData.getNormals());
-        //vao.bindIndirects(renderData.getIndirects());
+        vao.bindIndirects(renderData.getIndirects());
     }
 
     public void render(BatchProgram program){
@@ -39,7 +39,7 @@ public class SimpleBatchRenderer {
         vao.enableAttributes();
         program.loadTransformations(renderData.getTransforms());
         vao.enableTexture();
-        GL43.glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, renderData.getIndirects(), renderData.getDrawCallCount(), 0);
+        GL43.glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, 0, renderData.getDrawCallCount(), 0);
         vao.disableAttributes();
         vao.unbind();
     }

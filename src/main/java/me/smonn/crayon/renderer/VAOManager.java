@@ -1,6 +1,7 @@
 package me.smonn.crayon.renderer;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 
 import java.io.File;
@@ -11,12 +12,12 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 public class VAOManager {
     private int vaoID;
-    private int indirectID;
     private int textureID;
 
     public void setup(){
@@ -31,22 +32,14 @@ public class VAOManager {
     }
 
     public void bindIndirects(IntBuffer indirects){
-        indirectID = GL15.glGenBuffers();
+        int indirectID = GL15.glGenBuffers();
         GL15.glBindBuffer(GL40.GL_DRAW_INDIRECT_BUFFER, indirectID);
         GL15.glBufferData(GL40.GL_DRAW_INDIRECT_BUFFER, indirects, GL15.GL_STATIC_DRAW);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, indirectID);
-        GL20.glEnableVertexAttribArray(3); //TODO manage the buffer indexes
-        GL30.glVertexAttribIPointer(3, 1, GL11.GL_UNSIGNED_INT, 4, 4);
-        GL33.glVertexAttribDivisor(3, 1);
     }
 
     public void enableTexture(){
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-    }
-
-    public int getIndirectID(){
-        return indirectID;
+        GL11.glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
     public void bindVertices(FloatBuffer data){
@@ -65,14 +58,15 @@ public class VAOManager {
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
-        GL20.glEnableVertexAttribArray(3);
+        GL20.glEnableVertexAttribArray(5);
+
     }
 
     public void disableAttributes(){
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);
-        GL20.glDisableVertexAttribArray(3);
+        GL20.glDisableVertexAttribArray(5);
     }
 
     private void bindFloats(int attributeIndex, int batchSize, FloatBuffer data){

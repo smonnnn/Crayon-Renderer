@@ -17,6 +17,7 @@ public class RenderData {
 
     private int gl_InstanceID = 0;
     private int indicesOffset = 0;
+    private int indirectCount = 0;
 
     public RenderData(){
         this.vertices = new AutoFloatBuffer(0);
@@ -37,9 +38,10 @@ public class RenderData {
     }
 
     private void addIndirect(int vertexCount, int renderCount, int indicesCount){
-        indirects.put(new int[]{vertexCount, renderCount, 0, indicesOffset, gl_InstanceID});
+        indirects.put(new int[]{vertexCount * 3, renderCount, 0, indicesOffset, gl_InstanceID});
         gl_InstanceID+=renderCount;
         indicesOffset+=indicesCount;
+        indirectCount++;
     }
 
     private float[] tempBuffer = new float[16];
@@ -63,10 +65,6 @@ public class RenderData {
             tempBuffer[15] = matrix.m33;
             transforms.put(tempBuffer);
         }
-    }
-
-    public int getVertexCount(){
-        return vertices.getBufferSize();
     }
 
     public FloatBuffer getVertices(){
@@ -94,7 +92,7 @@ public class RenderData {
     }
 
     public int getDrawCallCount(){
-        return gl_InstanceID;
+        return indirectCount;
     }
 }
 

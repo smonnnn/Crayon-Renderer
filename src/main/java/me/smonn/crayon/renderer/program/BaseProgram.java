@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 public abstract class BaseProgram {
     private final int programID;
@@ -81,6 +82,10 @@ public abstract class BaseProgram {
 
     protected void loadFloat(int location, float value){
         GL20.glUniform1f(location, value);
+    }
+
+    protected void loadInt(int location, IntBuffer value){
+        GL30.glUniform1u(location, value);
     }
 
     protected void loadVec3(int location, Vector3f value){
