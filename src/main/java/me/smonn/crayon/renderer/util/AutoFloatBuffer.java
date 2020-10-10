@@ -32,4 +32,8 @@ public class AutoFloatBuffer {
         buff.flip();
         return buff;
     }
+
+    public int getBufferSize(){
+        return buffer.length;
+    }
 }

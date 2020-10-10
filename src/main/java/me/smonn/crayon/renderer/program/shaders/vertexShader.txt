@@ -14,9 +14,9 @@ uniform mat4 mat_view;
 uniform vec3 lightPos;
 
 void main(void){
-    vec4 worldPos = mat_transformations[gl_InstanceID] * vec4(pos, 1.0);
+    vec4 worldPos = mat_transformations[0] * vec4(pos, 1.0);
     gl_Position = mat_projection * mat_view * worldPos;
     pass_texUV = texUV;
-    surfaceNormal = (mat_transformations[gl_InstanceID] * vec4(normal, 0.0)).xyz;
+    surfaceNormal = (mat_transformations[0] * vec4(normal, 0.0)).xyz;
     toLightVector = lightPos - worldPos.xyz;
 }

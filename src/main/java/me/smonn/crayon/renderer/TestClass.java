@@ -34,7 +34,7 @@ public class TestClass {
             program.start();
             program.loadLightTemp();
             program.loadView(camera);
-            renderer.render();
+            renderer.render(program);
             program.stop();
             Window.updateDisplay();
         }

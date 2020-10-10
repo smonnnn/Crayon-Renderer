@@ -21,7 +21,6 @@ public class SimpleBatchRenderer {
         this.vao = new VAOManager();
         program.start();
         program.loadProjection(Maths.createProjectionMatrix(FAR_PLANE, NEAR_PLANE, FOV));
-        program.loadTransformations(data.getTransforms());
         program.stop();
     }
 
@@ -32,14 +31,15 @@ public class SimpleBatchRenderer {
         vao.bindTexture("white");
         vao.bindIndices(renderData.getIndices());
         vao.bindNormals(renderData.getNormals());
-        vao.bindIndirects(renderData.getIndirects());
+        //vao.bindIndirects(renderData.getIndirects());
     }
 
-    public void render(){
+    public void render(BatchProgram program){
         vao.bind();
         vao.enableAttributes();
+        program.loadTransformations(renderData.getTransforms());
         vao.enableTexture();
-        GL43.glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, vao.getIndirectID(), renderData.getDrawCallCount(), 0);
+        GL43.glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, renderData.getIndirects(), renderData.getDrawCallCount(), 0);
         vao.disableAttributes();
         vao.unbind();
     }

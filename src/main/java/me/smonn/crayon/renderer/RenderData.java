@@ -1,6 +1,5 @@
 package me.smonn.crayon.renderer;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.util.vector.Matrix4f;
 import me.smonn.crayon.renderer.util.AutoFloatBuffer;
 import me.smonn.crayon.renderer.util.AutoIntBuffer;
@@ -20,12 +19,12 @@ public class RenderData {
     private int indicesOffset = 0;
 
     public RenderData(){
-        this.vertices = new AutoFloatBuffer(60);
-        this.texUVs = new AutoFloatBuffer(40);
-        this.indices = new AutoIntBuffer(30);
-        this.normals = new AutoFloatBuffer(60);
-        this.indirects = new AutoIntBuffer(50);
-        this.transforms = new AutoFloatBuffer(160);
+        this.vertices = new AutoFloatBuffer(0);
+        this.texUVs = new AutoFloatBuffer(0);
+        this.indices = new AutoIntBuffer(0);
+        this.normals = new AutoFloatBuffer(0);
+        this.indirects = new AutoIntBuffer(0);
+        this.transforms = new AutoFloatBuffer(0);
     }
 
     public void addDrawCall(float[] vertices, int[] indices, float[] texUVs, float[] normals, Matrix4f[] transforms, int renderCount){
@@ -66,6 +65,10 @@ public class RenderData {
         }
     }
 
+    public int getVertexCount(){
+        return vertices.getBufferSize();
+    }
+
     public FloatBuffer getVertices(){
         return vertices.get();
     }
@@ -91,7 +94,7 @@ public class RenderData {
     }
 
     public int getDrawCallCount(){
-        return this.indirects.getBufferSize() / 5;
+        return gl_InstanceID;
     }
 }
 
