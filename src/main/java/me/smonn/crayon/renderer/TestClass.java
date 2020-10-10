@@ -38,7 +38,7 @@ public class TestClass {
             program.stop();
             Window.updateDisplay();
         }
-        
+
         Window.closeDisplay();
         program.exit();
     }
