@@ -17,14 +17,19 @@ public class TestClass {
         init();
         Window.createDisplay();
 
-        Matrix4f[] tempTransform = new Matrix4f[100];
+        Matrix4f[] tempTransform = new Matrix4f[2];
 
-        for(int i = 0; i < 100; i++){
-            tempTransform[i] = Maths.createTransformationMatrix(new Vector3f(i - 50, i - 50, -130), i * 10, i * 10, i * 10, 0.5f);
-        }
+        tempTransform[0] = Maths.createTransformationMatrix(new Vector3f(-10, 10, -20), 0, 0, 0, 1f);
+        tempTransform[1] = Maths.createTransformationMatrix(new Vector3f(10, 10, -20), 0, 0, 0, 1f);
+
+        Matrix4f[] tempTransform2 = new Matrix4f[2];
+
+        tempTransform2[0] = Maths.createTransformationMatrix(new Vector3f(-10, -10, -20), 0, 0, 0, 1f);
+        tempTransform2[1] = Maths.createTransformationMatrix(new Vector3f(10, -10, -20), 0, 0, 0, 1f);
 
         RenderData data = new RenderData();
         OBJLoader.loadObjModel("dragon", data, tempTransform, tempTransform.length);
+        OBJLoader.loadObjModel("dragon", data, tempTransform2, tempTransform2.length);
 
         BatchProgram program = new BatchProgram();
         SimpleBatchRenderer renderer = new SimpleBatchRenderer(data, program);

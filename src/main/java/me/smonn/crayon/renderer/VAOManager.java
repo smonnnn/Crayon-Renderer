@@ -58,7 +58,6 @@ public class VAOManager {
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
-        GL20.glEnableVertexAttribArray(5);
 
     }
 
@@ -66,8 +65,7 @@ public class VAOManager {
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);
-        GL20.glDisableVertexAttribArray(5);
-    }
+        }
 
     private void bindFloats(int attributeIndex, int batchSize, FloatBuffer data){
         int vboID = GL15.glGenBuffers();

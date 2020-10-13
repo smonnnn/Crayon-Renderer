@@ -15,7 +15,7 @@ public class RenderData {
     private AutoIntBuffer indirects;
     private AutoFloatBuffer transforms;
 
-    private int gl_InstanceID = 0;
+    private int drawId = 0;
     private int indicesOffset = 0;
     private int indirectCount = 0;
 
@@ -34,12 +34,19 @@ public class RenderData {
         this.indices.put(indices);
         this.normals.put(normals);
         this.addTransforms(transforms);
-        this.addIndirect(vertices.length, renderCount, indices.length);
+        this.addIndirect(renderCount, indices.length);
     }
 
-    private void addIndirect(int vertexCount, int renderCount, int indicesCount){
-        indirects.put(new int[]{vertexCount * 3, renderCount, 0, indicesOffset, gl_InstanceID});
-        gl_InstanceID+=renderCount;
+    private int[] tempArr = new int[5];
+    private void addIndirect(int renderCount, int indicesCount){
+        tempArr[0] = indicesCount;
+        tempArr[1] = renderCount;
+        tempArr[2] = 0;
+        tempArr[3] = indicesOffset;
+        tempArr[4] = drawId;
+
+        indirects.put(tempArr);
+        drawId+=renderCount;
         indicesOffset+=indicesCount;
         indirectCount++;
     }
@@ -91,7 +98,7 @@ public class RenderData {
         return normals.get();
     }
 
-    public int getDrawCallCount(){
+    public int getIndirectCount(){
         return indirectCount;
     }
 }

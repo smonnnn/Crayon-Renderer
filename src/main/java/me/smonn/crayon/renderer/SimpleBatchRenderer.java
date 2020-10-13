@@ -39,7 +39,7 @@ public class SimpleBatchRenderer {
         vao.enableAttributes();
         program.loadTransformations(renderData.getTransforms());
         vao.enableTexture();
-        GL43.glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, 0, renderData.getDrawCallCount(), 0);
+        GL43.glMultiDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, 0, renderData.getIndirectCount(), 0);
         vao.disableAttributes();
         vao.unbind();
     }
